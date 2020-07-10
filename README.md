@@ -1,4 +1,7 @@
-# rabbitmq-management-react
+# RabbitMQ Management UI using React
+
+A fun experiment to rewrite the web interface from the RabbitMQ Management plugin using React. This is not an official
+project.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
