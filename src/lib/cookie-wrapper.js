@@ -33,7 +33,7 @@ class CookieWrapper {
      * Using this function is preferred over just looking at the cookie because the cookie uses a custom format to save
      * space. This function allows you to work with that format a bit easier.
      *
-     * @param key
+     * @param {string} key
      * @return string|null
      */
     get(key) {
@@ -57,8 +57,8 @@ class CookieWrapper {
      * The key must be the human readable version and not the hash code
      * The type of value should be either boolean, number, or string
      *
-     * @param key
-     * @param value
+     * @param {string} key
+     * @param {string, number, boolean} value
      */
     set(key, value) {
         let parsed = this.getAll() || {};
@@ -70,20 +70,34 @@ class CookieWrapper {
     }
 
     /**
+     * @param {Date} expirationDate
+     */
+    setExpiration(expirationDate) {
+        this._saveCookie({
+            expires: expirationDate
+        });
+    }
+
+    /**
      * Remove a value from the cookie
      *
      * The key must be the human readable version and not the hash code
      *
-     * @param key
+     * @param {string} key
      */
     remove(key) {
         let keyHashCode = this.getShortKey(key);
         delete this.#data[keyHashCode];
     }
 
-    _saveCookie() {
+    /**
+     *
+     * @param {Object} [options]
+     * @private
+     */
+    _saveCookie(options) {
         let cookieValue = this.toString();
-        this.cookies.set(CookieWrapper.#COOKIE_NAME, cookieValue);
+        this.cookies.set(CookieWrapper.#COOKIE_NAME, cookieValue, options);
     }
 
     /**
